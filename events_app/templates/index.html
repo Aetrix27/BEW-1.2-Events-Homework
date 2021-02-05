@@ -6,26 +6,21 @@
 
 <a href="/create">+ New Event</a>
 
-<!-- 
-    TODO: Use the event objects to display the correct information (and take 
-    out the hardcoded values)
--->
-
 <div class="event-container">
     <h3><a href="/event/1">{{events[0].title}}</a></h3>
-    <p><strong>Date and Time:</strong> Friday March 5, 2021 at 5:00 PM</p>
-    <p><strong>Description:</strong> Come join us for some fun zoom games!</p>
+    <p><strong>Date and Time:</strong> {{events[0].date_and_time.strftime('%A %B %d, %Y')}} at {{events[0].date_and_time.strftime('%H:%M')}}</p>
+    <p><strong>Description:</strong> {{events[0].description}}</p>
     <p class="small-text">
-        5 attending
+        {{events[0].guests|length}} attending
     </p>
 </div>
 
 <div class="event-container">
-    <h3><a href="/event/2">somehow</a></h3>
-    <p><strong>Date:</strong> Saturday June 12, 2021 at 2:00 PM</p>
-    <p><strong>Description:</strong> Bring a picnic blanket and meet new people!</p>
+    <h3><a href="/event/2">{{events[1].title}}</a></h3>
+    <p><strong>Date:</strong> {{events[0].date_and_time.strftime('%A %B %d, %Y')}} at {{events[0].date_and_time.strftime('%H:%M')}}</p>
+    <p><strong>Description:</strong> {{events[1].description}}</p>
     <p class="small-text">
-        10 attending
+        {{events[1].guests|length}} attending
     </p>
 </div>
 

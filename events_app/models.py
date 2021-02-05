@@ -1,13 +1,7 @@
 """Create database models to represent tables."""
 from events_app import db
+from datetime import datetime
 from sqlalchemy.orm import backref
-
-# TODO: Create a model called `Guest` with the following fields:
-# - id: primary key
-# - name: String column
-# - email: String column
-# - phone: String column
-# - events_attending: relationship to "Event" table with a secondary table
 
 
 class Guest(db.Model):
@@ -15,7 +9,7 @@ class Guest(db.Model):
     name = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(80))
     phone = db.Column(db.String(80))
-    events_attending = db.relationship('Guest', secondary = 'guest_event')
+    events_attending = db.relationship('Event', secondary = 'guest_event')
 
     def __str__(self):
         return f'<Name: {self.name}>'
@@ -23,23 +17,13 @@ class Guest(db.Model):
     def __repr__(self):
         return f'<Name: {self.name}>'
 
-
-# TODO: Create a model called `Event` with the following fields:
-# - id: primary key
-# - title: String column
-# - description: String column
-# - date_and_time: DateTime column
-# - guests: relationship to "Guest" table with a secondary table
-
-# STRETCH CHALLENGE: Add a field `event_type` as an Enum column that denotes the
-# type of event (Party, Study, Networking, etc)
 
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80), nullable=False)
     description = db.Column(db.String(80))
     date_and_time = db.Column(db.Date)
-    guests = db.relationship('Event', secondary = 'guest_event')
+    guests = db.relationship('Guest', secondary = 'guest_event')
 
     def __str__(self):
         return f'<Event Title: {self.title}>'
@@ -47,9 +31,6 @@ class Event(db.Model):
     def __repr__(self):
         return f'<Event Title: {self.title}>'
 
-# TODO: Create a table `guest_event_table` with the following columns:
-# - book_id: Integer column (foreign key)
-# - genre_id: Integer column (foreign key)
 guest_event_table = db.Table('guest_event',
     db.Column('guest_id', db.Integer, db.ForeignKey('guest.id')),
     db.Column('event_id', db.Integer, db.ForeignKey('event.id'))
