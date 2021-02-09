@@ -37,7 +37,6 @@ def event_detail(event_id):
         'event' : event,
         'time' : time,
         'date' : date
-
     }
 
     return render_template('event_detail.html', **context)
@@ -85,7 +84,6 @@ def create():
             print('there was an error: incorrect datetime format')
 
         new_event = Event(title=new_event_title, description = new_event_description, date_and_time=date_and_time)
-
         db.session.add(new_event)
         db.session.commit()
 
